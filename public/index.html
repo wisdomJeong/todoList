@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ToDoList</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="./css/master.css"/>
+
+    <script src="./js/core.js"/>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+</head>
+<body ng-app>
+    <div class="container" ng-controller="todoController">
+
+        <!-- HEADER AND TODO COUNT -->
+        <div class="page-header text-center">
+            <h1 style="color:lightcoral" class="strong">Wisdom Todo List</span></h1>
+        </div>
+
+        <!-- FORM TO CREATE TODOS -->
+        <div id="todo-form" class="row">
+            <div class="col-sm-8 col-sm-offset-2 text-center">
+                <form>
+                    <div class="form-group col-sm-10">
+
+                        <!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
+                        <input type="text" class="form-control input-lg text-center" placeholder="write todo!" ng-model="formData.text">
+                    </div>
+
+                    <!-- createToDo() WILL CREATE NEW TODOS -->
+                    <button type="submit" class="btn btn-primary btn-lg col-sm-2"  ng-click="createTodo()">Add</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- TODO LIST -->
+        <!-- LOOP OVER THE TODOS IN $scope.todos -->
+        <div id="todo-list" class="row" style="margin-top: 20px;">
+            <div class="col-sm-4 col-sm-offset-4">
+                <div class="" ng-repeat="todo in todos">
+                    <button class="btn btn-primary btn-sm" ng-click="updateView(todo._id, todo.text)">Update</button>
+                    <button class="btn btn-danger btn-sm" ng-click="deleteTodo(todo._id)">Delete</button>
+                    <label style="margin-left: 15px;" ng-click="completeTodo($event, todo._id)"><input type="checkbox" class="check" ng-checked="todo.done" style="margin-right: 10px;">{{ todo.text }}</label>
+                </div>
+            </div>
+        </div>
+
+        <div id="myModal" class="modal col-centered">
+            <div class="modal-dialog">
+
+                <!-- Modal content -->
+                <div class="modal-content row" style="width: 400px;">
+                    <div style="margin-bottom: 20px; margin-top: 20px; margin-left: 7px;">
+                        <button type="button" class="close" ng-click="modalClose()" style="margin-right: 10px;">&times;</button>
+                        <h4 class="modal-title" style="width: 370px;">Update Todo</h4>
+                    </div>
+                    <div class="col-xs-8 col-sm-8" style="margin-bottom: 20px;">
+                        <h id="id" class="hide"></h>
+                        <input type="text" class="text-center input-lg" id="modal_text" value=""/>
+                    </div>
+                    <div class="col-sm-2">
+                        <button style="margin-top: 5px;" type="button" class="btn btn-primary" id="modal_close_btn" ng-click="updateTodo()">Update</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>
